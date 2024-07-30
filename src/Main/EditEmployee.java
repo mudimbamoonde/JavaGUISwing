@@ -7,8 +7,10 @@ package Main;
 
 import java.io.EOFException;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -112,12 +114,12 @@ public class EditEmployee extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        EmpName = new javax.swing.JTextField();
+        empName = new javax.swing.JTextField();
         empCombo = new javax.swing.JComboBox<>();
         jobCombox = new javax.swing.JComboBox<>();
         empSurname = new javax.swing.JTextField();
         empStaffNumber = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        savebtn = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -146,9 +148,14 @@ public class EditEmployee extends javax.swing.JFrame {
 
         jobCombox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main/save.png"))); // NOI18N
-        jButton1.setText("Save");
+        savebtn.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        savebtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main/save.png"))); // NOI18N
+        savebtn.setText("Save");
+        savebtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                savebtnActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main/exit.png"))); // NOI18N
@@ -173,11 +180,11 @@ public class EditEmployee extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jobCombox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(EmpName)
+                    .addComponent(empName)
                     .addComponent(empSurname)
                     .addComponent(empStaffNumber)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(savebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton2)
                         .addGap(0, 110, Short.MAX_VALUE))
@@ -196,7 +203,7 @@ public class EditEmployee extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(EmpName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(empName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -211,7 +218,7 @@ public class EditEmployee extends javax.swing.JFrame {
                     .addComponent(empStaffNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(savebtn)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
@@ -223,7 +230,7 @@ public class EditEmployee extends javax.swing.JFrame {
         // TODO add your handling code here:
         int indexSelected = empCombo.getSelectedIndex();
 //        employee
-          EmpName.setText(employee.get(indexSelected).getName());
+          empName.setText(employee.get(indexSelected).getName());
           empSurname.setText(employee.get(indexSelected).getSurname());
           empStaffNumber.setText(String.valueOf(employee.get(indexSelected).getStaffNr()));
           
@@ -245,6 +252,54 @@ public class EditEmployee extends javax.swing.JFrame {
           
     }//GEN-LAST:event_empComboActionPerformed
 
+    private void savebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savebtnActionPerformed
+        // TODO add your handling code here:
+          if(empName.getText().isEmpty() || empSurname.getText().isEmpty() ||
+                empStaffNumber.getText().isEmpty())
+        {
+          JOptionPane.showMessageDialog(null,"Please enter all fields!");
+        }else
+        {
+            int indexSelected = empCombo.getSelectedIndex();
+            employee.get(indexSelected).setName((empName.getText().trim()));
+            employee.get(indexSelected).setSurname((empSurname.getText().trim()));
+            employee.get(indexSelected).setStaffNr((Integer.parseInt(empStaffNumber.getText().trim())));
+            
+            
+//         String name = empName.getText().trim();
+//         String lastname = empSurname.getText().trim();
+//         int jobIndex = jobCombox.getSelectedIndex();
+//         Job job = jobs.get(jobIndex);
+//          
+//         int staffNum = Integer.parseInt(empStaffNumber.getText().trim());
+//         
+//         Employee emp = new Employee(name,lastname,job,staffNum);
+//         employee.add(emp);
+//         saveEmployeesToFile();
+//         
+        }
+        
+    }//GEN-LAST:event_savebtnActionPerformed
+   public void saveEmployeesToFile()
+   {
+       try
+       {
+           FileOutputStream file  = new FileOutputStream("Employees.dat");
+           ObjectOutputStream outputFile = new ObjectOutputStream(file);
+           
+           for(int i=0; i<employee.size(); i++){
+            outputFile.writeObject(employee.get(i));
+           }
+           
+             outputFile.close();
+             JOptionPane.showMessageDialog(null,"Successfully Saved!");
+             this.dispose();
+           
+       }catch(IOException f){
+           JOptionPane.showMessageDialog(null,f.getMessage());
+       }
+   
+   }
     
     
     public static void main(String args[]) {
@@ -255,7 +310,7 @@ public class EditEmployee extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -280,11 +335,10 @@ public class EditEmployee extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField EmpName;
     private javax.swing.JComboBox<String> empCombo;
+    private javax.swing.JTextField empName;
     private javax.swing.JTextField empStaffNumber;
     private javax.swing.JTextField empSurname;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -293,5 +347,6 @@ public class EditEmployee extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JComboBox<String> jobCombox;
+    private javax.swing.JButton savebtn;
     // End of variables declaration//GEN-END:variables
 }

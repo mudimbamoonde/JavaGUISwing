@@ -28,6 +28,7 @@ public class EditEmployee extends javax.swing.JFrame {
      */
     public EditEmployee() {
         initComponents();
+         setLocationRelativeTo(null);
         formatter = new DecimalFormat("#,###.00");
         jobs = new ArrayList<Job>();
         employee = new ArrayList<Employee>();
@@ -120,7 +121,7 @@ public class EditEmployee extends javax.swing.JFrame {
         empSurname = new javax.swing.JTextField();
         empStaffNumber = new javax.swing.JTextField();
         savebtn = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        deleteBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Edit Employee");
@@ -157,9 +158,14 @@ public class EditEmployee extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main/exit.png"))); // NOI18N
-        jButton2.setText("Delete");
+        deleteBtn.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        deleteBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main/exit.png"))); // NOI18N
+        deleteBtn.setText("Delete");
+        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -186,7 +192,7 @@ public class EditEmployee extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(savebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2)
+                        .addComponent(deleteBtn)
                         .addGap(0, 110, Short.MAX_VALUE))
                     .addComponent(empCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -219,7 +225,7 @@ public class EditEmployee extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(savebtn)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -265,6 +271,11 @@ public class EditEmployee extends javax.swing.JFrame {
             employee.get(indexSelected).setSurname((empSurname.getText().trim()));
             employee.get(indexSelected).setStaffNr((Integer.parseInt(empStaffNumber.getText().trim())));
             
+            Job job = jobs.get(jobCombox.getSelectedIndex());
+            
+            employee.get(indexSelected).setJob(job);
+            
+            saveEmployeesToFile();
             
 //         String name = empName.getText().trim();
 //         String lastname = empSurname.getText().trim();
@@ -280,6 +291,16 @@ public class EditEmployee extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_savebtnActionPerformed
+
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+        // TODO add your handling code here:
+        int indexSelected = empCombo.getSelectedIndex();
+        
+        employee.remove(indexSelected);
+          saveEmployeesToFile();
+        
+        
+    }//GEN-LAST:event_deleteBtnActionPerformed
    public void saveEmployeesToFile()
    {
        try
@@ -335,11 +356,11 @@ public class EditEmployee extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton deleteBtn;
     private javax.swing.JComboBox<String> empCombo;
     private javax.swing.JTextField empName;
     private javax.swing.JTextField empStaffNumber;
     private javax.swing.JTextField empSurname;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

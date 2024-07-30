@@ -26,6 +26,7 @@ public class AddNewJob extends javax.swing.JFrame {
      */
     public AddNewJob() {
         initComponents();
+         setLocationRelativeTo(null);
         jobs = new ArrayList<Job>();
         populateArrayList();
     }

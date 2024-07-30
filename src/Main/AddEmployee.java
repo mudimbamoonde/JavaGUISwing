@@ -26,6 +26,7 @@ public class AddEmployee extends javax.swing.JFrame {
      */
     public AddEmployee() {
         initComponents();
+         setLocationRelativeTo(null);
         
         formatter = new DecimalFormat("#,###.00");
         jobs = new ArrayList<Job>();

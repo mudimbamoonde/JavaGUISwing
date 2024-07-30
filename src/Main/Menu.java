@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Main;
 
 /**
@@ -16,6 +11,7 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -33,6 +29,7 @@ public class Menu extends javax.swing.JFrame {
         exitBtn = new javax.swing.JMenuItem();
         addEmployeeBtn = new javax.swing.JMenu();
         addEmployee = new javax.swing.JMenuItem();
+        ViewEmployees = new javax.swing.JMenuItem();
         addJobBtn = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         EditEmployeeBtn = new javax.swing.JMenuItem();
@@ -68,6 +65,15 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         addEmployeeBtn.add(addEmployee);
+
+        ViewEmployees.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main/addemployee.png"))); // NOI18N
+        ViewEmployees.setText("View Employees");
+        ViewEmployees.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ViewEmployeesActionPerformed(evt);
+            }
+        });
+        addEmployeeBtn.add(ViewEmployees);
 
         addJobBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main/job.png"))); // NOI18N
         addJobBtn.setText("Add Job");
@@ -132,6 +138,11 @@ public class Menu extends javax.swing.JFrame {
        new EditEmployee().setVisible(true);
     }//GEN-LAST:event_EditEmployeeBtnActionPerformed
 
+    private void ViewEmployeesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewEmployeesActionPerformed
+        // TODO add your handling code here:
+        new ViewEmployees().setVisible(true);
+    }//GEN-LAST:event_ViewEmployeesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -143,20 +154,16 @@ public class Menu extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        
         //</editor-fold>
 
         /* Create and display the form */
@@ -170,6 +177,7 @@ public class Menu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem EditEmployeeBtn;
     private javax.swing.JMenu ExitBtn;
+    private javax.swing.JMenuItem ViewEmployees;
     private javax.swing.JMenuItem addEmployee;
     private javax.swing.JMenu addEmployeeBtn;
     private javax.swing.JMenuItem addJobBtn;

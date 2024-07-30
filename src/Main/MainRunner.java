@@ -11,6 +11,8 @@ package Main;
  */
 public class MainRunner {
     public static void main(String[]args){
-      new Menu().setVisible(true);
+      new Thread(()-> {
+            new Menu().setVisible(true);
+    }).start();
     }
 }
